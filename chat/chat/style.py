@@ -23,3 +23,7 @@ input_style = dict(
     border_width="1px", padding="1em", box_shadow=shadow
 )
 button_style = dict(bg="#CEFFEE", box_shadow=shadow)
+
+spinner_style = dict(
+    text_align="center"
+)
