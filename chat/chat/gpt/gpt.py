@@ -38,7 +38,7 @@ assistant는 카카오싱크 API에서 제공하는 기능이 무엇인지 설�
 class GPT:
     def execute(self, question):
         system_message_prompt = SystemMessage(content=system_msg)
-        human_template = ("manual을 기반으로 질문: {question}에 대답해줘")
+        human_template = ("<manual>을 기반으로 '<question>'의 질문에 대답해줘")
         human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
         chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
         chain = LLMChain(llm=chat, prompt=chat_prompt)

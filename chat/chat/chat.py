@@ -37,14 +37,8 @@ def index() -> pc.Component:
         chat_wrap(),
         action_bar_wrap(),
         pc.cond(
-            State.is_working, pc.spinner(
-                color="lightgreen",
-                thickness=5,
-                speed="1.5s",
-                size="xl",
-            )
+            State.is_working, pc.spinner(color="lightgreen", thickness=5, speed="1.5s", size="xl")
         ),
-
     )
 
 
