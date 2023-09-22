@@ -13,13 +13,13 @@ class State(pc.State):
 
     async def submit(self):
         self.is_working = True
+        yield
 
         if self.input_text.strip() == "":
             return
 
         res = GPT().execute(self.input_text)
-        yield
 
         self.messages.append(res)
 
-        self.is_working = True
+        self.is_working = False

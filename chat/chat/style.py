@@ -25,5 +25,6 @@ input_style = dict(
 button_style = dict(bg="#CEFFEE", box_shadow=shadow)
 
 spinner_style = dict(
-    text_align="center"
+    text_align="center",
+    margin_top="50px"
 )
