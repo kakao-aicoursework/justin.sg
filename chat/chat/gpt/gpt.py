@@ -26,13 +26,17 @@ def read_prompt_template(file_path: str) -> str:
     return prompt_template
 
 
-manual = read_prompt_template("project_data.txt")
+manual = read_prompt_template("manual.txt")
 chat = ChatOpenAI(temperature=0.8)
 system_msg = f"""
 assistant는 카카오싱크 API에서 제공하는 기능이 무엇인지 설명하는 역할을 담당한다.
+<message>
+</message>
+
+<related_documents>
+</related_documents>
 <manual>
-{manual}
-</manual>"""
+"""
 
 
 class GPT:
