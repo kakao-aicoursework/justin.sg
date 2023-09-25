@@ -7,7 +7,8 @@ pc run
 ```
 
 **flow**
-![image](https://github.com/kakao-aicoursework/justin.sg/assets/35288556/d51b0808-e3cc-4d0f-af73-0bb731bdc5a7)
+![image](https://github.com/kakao-aicoursework/justin.sg/assets/35288556/5a6cd6bf-1645-42f1-8980-eb67558271f4)
+
 
 
 
