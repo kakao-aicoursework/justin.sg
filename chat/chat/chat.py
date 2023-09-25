@@ -28,17 +28,35 @@ def action_bar_wrap() -> pc.Component:
             on_blur=State.set_input_text,
             style=style.input_style,
         ),
-        pc.button("질문", on_click=State.submit, style=style.button_style),
+        pc.button("질문", on_click=State.submit_handler, style=style.button_style),
+    )
+
+
+def loading() -> pc.Component:
+    return pc.cond(
+        State.is_working,
+        pc.box(pc.spinner(color="lightgreen", thickness=5, speed="1.5s", size="xl"), style=style.spinner_style)
+    )
+
+
+def leaning_wrap() -> pc.Component:
+    return pc.hstack(
+        pc.box(
+            pc.foreach(State.leaning_messages, lambda message: pc.box(
+                pc.text(message, style=style.answer_style)
+            )), width="100%"
+        ),
+        pc.button("학습", on_click=State.leaning_handler, style=style.button_style),
+        margin_top="50px;"
     )
 
 
 def index() -> pc.Component:
     return pc.container(
+        leaning_wrap(),
         chat_wrap(),
         action_bar_wrap(),
-        pc.cond(
-            State.is_working, pc.box(pc.spinner(color="lightgreen", thickness=5, speed="1.5s", size="xl"), style=style.spinner_style)
-        ),
+        loading(),
     )
 
 

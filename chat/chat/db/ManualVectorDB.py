@@ -10,7 +10,6 @@ from langchain.vectorstores import Chroma
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = os.environ.get('OPENAI_API_KEY')
 
-
 class ManualVectorDB:
     manual_file_path = "./manual.txt"
     collection_name = "manual"
@@ -25,14 +24,12 @@ class ManualVectorDB:
     )
 
     def create(self):
-        try:
-            input_text_list = self.load_file()
-            self.add_embeddings(input_text_list)
-            return True
-        except Exception:
-            return False
+        input_text_list = self.load_file()
+        self.add_embeddings(input_text_list)
 
-    def load_file(self) -> list:
+        return input_text_list
+
+    def load_file(self) -> List[str]:
         def to_dic(input_text: str):
             # 빈문자 제거
             lines = [item for item in input_text.strip().splitlines() if item != ""]
@@ -78,13 +75,7 @@ class ManualVectorDB:
 
         print("Success adding embedding documents")
 
-    def query(self, query: str):
-        docs = self.db.similarity_search(query)
+    def query(self, query: str, max_document_size: int = 3):
+        docs = self.db.similarity_search(query=query, k=max_document_size)
+
         return [doc.page_content for doc in docs]
-
-
-db = ManualVectorDB()
-db.create()
-print(
-    db.query("카카오싱크 신청 시작하는 방법에 대해 알려줘")
-)
