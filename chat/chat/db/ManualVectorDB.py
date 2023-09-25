@@ -37,7 +37,7 @@ class ManualVectorDB:
         self.add_embeddings(input_text_list)
         self.add_embeddings(search_text_list)
 
-        leaning_messages.append("Croma Collection 생성이 완료 되었습니다.")
+        leaning_messages.append("Chroma Collection 생성이 완료 되었습니다.")
         leaning_messages.append("Manual File 데이터의 Document 등록이 완료 되었습니다.")
         leaning_messages.append("Search 데이터의 Document 등록이 완료 되었습니다.")
 

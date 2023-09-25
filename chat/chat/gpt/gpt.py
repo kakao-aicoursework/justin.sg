@@ -54,10 +54,10 @@ class GPT:
             llm=llm,
             prompt=ChatPromptTemplate.from_template(
                 template="""
-                user가 입력한 {message}와 유사 단어로 선택된 {related_documents}을 활용하여 적절한 답을 한다.
+                user가 입력한 {message}와 유사한 데이터로 선택된 {related_documents}을 활용하여 적절한 답을 한다.
                 
                 <message>
-                {message}
+                    {message}
                 </message>
                 
                 <related_documents>
@@ -72,15 +72,15 @@ class GPT:
         selection = self.get_selected_table_of_content(message)
         print(f"Selection : {selection}")
 
-        result = vector_chain.run(
-            {
-                "message": message,
-                "related_documents": related_documents
-            }
-        )
-
         if selection == "manager":
             # todo etc
+            result = vector_chain.run(
+                {
+                    "message": message,
+                    "related_documents": related_documents
+                }
+            )
+
             return Message(
                 origin_input_text=message,
                 result_text=f"""[   정의된 메뉴얼 정보가 없어 학습한 내용을 바탕으로 답변합니다.   ]
@@ -89,6 +89,13 @@ class GPT:
                 created_at=datetime.datetime.now().isoformat()
             )
         else:
+            result = vector_chain.run(
+                {
+                    "message": message,
+                    "related_documents": related_documents
+                }
+            )
+
             return Message(
                 origin_input_text=message,
                 result_text=result,
