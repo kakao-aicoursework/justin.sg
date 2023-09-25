@@ -33,6 +33,4 @@ class State(pc.State):
         self.is_working = False
 
     def leaning_handler(self):
-        db.create()
-        self.leaning_messages.append("Croma Collection 생성이 완료 되었습니다.")
-        self.leaning_messages.append("Document 등록이 완료 되었습니다.")
+        db.create(self.leaning_messages)

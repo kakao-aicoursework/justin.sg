@@ -22,7 +22,8 @@ table_of_contents = """
 과정 예시: 카카오싱크를 사용하는 예시
 도입 안내: 카카오싱크 도입을 위한 방법
 설정 안내: 카카오싱크 설정 방법
-etc: 이외 또는 검색을 통해서만 확인 할 수 있는 정보이다.
+RestAPI: RestAPI와 관련한 내용 설명
+manager: 관리자와 연관된 내용 설명
 """
 
 
@@ -60,8 +61,7 @@ class GPT:
                 </message>
                 
                 <related_documents>
-                    1번
-                    2번
+                   {related_documents}
                 </related_documents>
                 
                 answer:
@@ -70,17 +70,25 @@ class GPT:
         )
 
         selection = self.get_selected_table_of_content(message)
+        print(f"Selection : {selection}")
 
-        if selection == "etc":
-            print("etc가 선택 되었습니다.")
-        else:
-            result = vector_chain.run(
-                {
-                    "message": message,
-                    "related_documents": related_documents
-                }
+        result = vector_chain.run(
+            {
+                "message": message,
+                "related_documents": related_documents
+            }
+        )
+
+        if selection == "manager":
+            # todo etc
+            return Message(
+                origin_input_text=message,
+                result_text=f"""[   정의된 메뉴얼 정보가 없어 학습한 내용을 바탕으로 답변합니다.   ]
+                {result}
+                """,
+                created_at=datetime.datetime.now().isoformat()
             )
-
+        else:
             return Message(
                 origin_input_text=message,
                 result_text=result,

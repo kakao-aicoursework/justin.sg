@@ -7,8 +7,12 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
+from chat.search.Search import Search
+
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = os.environ.get('OPENAI_API_KEY')
+search = Search()
+
 
 class ManualVectorDB:
     manual_file_path = "./manual.txt"
@@ -22,12 +26,21 @@ class ManualVectorDB:
         embedding_function=OpenAIEmbeddings(),
         collection_name=collection_name,
     )
+    search_url = [
+        "https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api"
+    ]
 
-    def create(self):
+    def create(self, leaning_messages: List[str]):
         input_text_list = self.load_file()
-        self.add_embeddings(input_text_list)
+        search_text_list = [search.query(url) for url in self.search_url]
 
-        return input_text_list
+        self.add_embeddings(input_text_list)
+        self.add_embeddings(search_text_list)
+
+        leaning_messages.append("Croma Collection 생성이 완료 되었습니다.")
+        leaning_messages.append("Manual File 데이터의 Document 등록이 완료 되었습니다.")
+        leaning_messages.append("Search 데이터의 Document 등록이 완료 되었습니다.")
+
 
     def load_file(self) -> List[str]:
         def to_dic(input_text: str):
